@@ -72,8 +72,10 @@ const dataa = [
 const [data, setData] = useState(dataa)
 
 //filtered data
-const singleites = 3 // number of items in single page
+const maxitem = 3 // number of items in single page
 const [tdata, setTdata] = useState("")
+const [fnav, setFnav] = useState(0)
+const [nxps , setNxps] = useState(0)
 
        // Pagination Function
        const paginate = (array, page_size, page_number) => {
@@ -88,7 +90,7 @@ const [tdata, setTdata] = useState("")
         //all data
         setData(dataa)
             //filtered data
-            setTdata(data.slice(0,singleites))
+            setTdata(data.slice(0,maxitem))
         }
     
         useEffect(()=>{
@@ -98,43 +100,56 @@ const [tdata, setTdata] = useState("")
 
     
     const step1 =(s) =>{
-       setTdata(paginate(data,singleites,s))
+       setTdata(paginate(data,maxitem,s))
     }
 
- //Paginate page nav
- var ia = 0
- var paginatepage = []
- data && data.map((d, i)=>{
-     if(i%singleites==0){
-         ia = ia+1
-         paginatepage.push(i+1)
+ //using this function get only integer value if reminder is not zero then incerese to 1
+ const divider = (dl, max) =>{
+         if(dl%max==0){
+            return (dl/max)
          }
          else{
-             return ""
+            return parseInt(dl/max)+1;
          }
+     }
+
+    var pagedvd = divider(data.length,maxitem)
+
+     var paginatepage = []
+    for(var i= 1;i<=pagedvd;i++){
+        paginatepage.push(i)         
+    }
+
+    var navdvd = divider(paginatepage.length, 2)
+
+    const Next = () =>{
+        if(nxps>=navdvd){
+            setNxps(1)
+            setFnav(paginatepage.slice(0,2))
+          }
+          else{
+            setNxps(nxps+1)
+            setFnav(paginatepage.slice(nxps*2,(nxps*2)+2))
+          }
+    }
+
+    const Prev = () =>{
+        if(nxps<=0){
+            setNxps(1)
+            setFnav(paginatepage.slice(0,2))
+          }
+          else{
+            setNxps(nxps-1)
+            setFnav(paginatepage.slice(nxps*2,(nxps*2)+2))
+          }
+    }
+
+    console.log("Next Prev Counter", nxps, " ", fnav)
+
+
+     const pagenav = fnav && fnav.map((d, i)=>{
+         return <li className="nav-item"><button className="btn btn-success" onClick={()=>step1(d)}>{d}</button></li>
      })
-
-
-
-
-     const pagenav1 = paginatepage.map((d, i)=>{
-         return <li className="nav-item"><button onClick={()=>step1(i+1)}>{i+1}</button></li>
-     })
-
-
-//Paginate pagination nav
- var ia = 0
- var paginatenav = []
- paginatepage && paginatepage.map((d, i)=>{
-     if(i%singleites==0){
-         ia = ia+1
-         paginatenav.push(i+1)
-         }
-         else{
-             return ""
-         }
-     })
-
 
     //Filtered data    
    const tempdata = tdata && tdata.map((d, i)=>{
@@ -148,23 +163,6 @@ const [tdata, setTdata] = useState("")
         )
     })
 
-
-    var pagenav12
-    const Next = li =>{
-       pagenav12 = paginatepage.map((d, i)=>{
-            if(i>=li){
-            return ""
-            }
-            else{
-                return <li className="nav-item"><button onClick={()=>step1(i+1)}>{i+1}</button></li>
-            }
-        })
-    }
-
-    const paginatenavdata = paginatepage.map((p)=>{
-        return <div className="btn btn-primary">{p}</div>
-    }) 
-
     return (
         <div className="container">
             <h5>Data 1</h5>
@@ -176,20 +174,15 @@ const [tdata, setTdata] = useState("")
                 <th>Salary</th>
             </tr>
     {tempdata}
-
-
     </table>
             <h5>Pagination</h5>
             <ul className="pagination">
-                {pagenav1}
+                {pagenav}
             </ul>
-            <div className="paginationnavdata">
-                {paginatenavdata}
-                </div>
-                    <div>
-                <button className="btn btn-primary" onClick={Next(2)}>Next</button>
-                {pagenav12}
-                </div>
+            page divider{pagedvd}<br/>
+            nav divider{navdvd}
+            <button className="btn btn-primary" onClick={()=>Next()}>Next</button>
+            <button className="btn btn-primary" onClick={()=>Prev()}>Prev</button>
         </div>
     )
 }
