@@ -146,6 +146,15 @@ const dataa = [
     }
 ]
 
+useEffect(()=>{
+    Datashow();
+},[])
+// [] is used to prevent fron infinite loop
+
+const Datashow = () =>{
+    
+}
+
 const [tdata, setTdata] = useState("")
 
     //Filtered data    

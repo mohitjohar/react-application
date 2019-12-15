@@ -7,7 +7,7 @@ return (
 <header class="bg-info text-white main-header">
 <div class="container">
  <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand"><Link to="/">MKReactapp</Link></a>
+  <a class="navbar-brand"><Link to="/"><img src="logo.png"/></Link></a>
   <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

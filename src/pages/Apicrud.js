@@ -33,9 +33,9 @@ const APICrud = () =>{
     const [data, setData] = useState("")
 
     //filtered data
-    const [tdata, setTdata] = useState("")
-    const maxbtn = 5
-    const maxitem = 100
+    const [filterarr, setFilterarr] = useState("")
+    const maxbtn = 4
+    const maxitem = 10
 
     //validation
     if(age>110){
@@ -55,8 +55,8 @@ const APICrud = () =>{
     .then(results=>{return results.json()})
     .then(data1=>{
         setData(data1)
-        setTdata(data1.slice(0,maxitem))
-        console.log("Data List",tdata)
+        setFilterarr(data1.slice(0,maxitem))
+        console.log("Data List",filterarr)
         setLoadertoggle(false)
     })
     }
@@ -77,7 +77,7 @@ return (
 <div className="container">
 <div className="row">
 <div className="col-md-8"><div className="overflow-auto">
-<DataList tdata={tdata} name={name} setName={setName} setLoadertoggle={setLoadertoggle} age={age} setAge={setAge} salary={salary} setSalary={setSalary} data={data} apiDatashow={apiDatashow} toggle1={toggle1} setToggle1={setToggle1} setId={setId}/></div>
+<DataList filterarr={filterarr} name={name} setName={setName} setLoadertoggle={setLoadertoggle} age={age} setAge={setAge} salary={salary} setSalary={setSalary} data={data} apiDatashow={apiDatashow} toggle1={toggle1} setToggle1={setToggle1} setId={setId}/></div>
 <div className="position-absuform">{toggle1 && <UpdateForm salarya={salarya} agea={agea} name={name} setLoadertoggle={setLoadertoggle} setName={setName} age={age} setAge={setAge} salary={salary} setSalary={setSalary} apiDatashow={apiDatashow} toggle1={toggle1} setToggle1={setToggle1} id={id}/>}</div>
 </div>
     <div className="col-md-4">
@@ -89,11 +89,11 @@ return (
     </div>
     <div className="col-md-8">
     <Paginationl
-data={data}
-maxitem={maxitem}
-maxbtn={maxbtn}
-setFilterarr={setTdata}
-/>
+        data={data}
+        setFilterarr={setFilterarr}
+        maxitem={maxitem}
+        maxbtn={maxbtn}
+    />
     </div>
     <div className="col-md-4 text-right"><button onClick={addItem} className="btn btn-primary">Add Item</button></div>
 </div>
