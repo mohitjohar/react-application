@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react';
 
 
 //tdata have filtered data
-const DataList =({tdata, setToggle1, toggle1,setId, setLoadertoggle, apiDatashow, data, setName, setAge, setSalary})=> {
+const DataList =({tdata, setToggle1, toggle1,setId, setLoadertoggle, apiDatashow, setName, setAge, setSalary})=> {
 
 const deleteItem= (i)=> {
   const url = `http://dummy.restapiexample.com/api/v1/delete/${i}`;
@@ -41,7 +41,7 @@ const updateItem = (i,n,a,s) => {
 // data is a state which have list of user detail, here && operator used for if jab tak data k pass value nhi jayegi tab tak map function action nhi lega
 	const dataw = tdata && tdata.map((d, index)=>{return (
     <tr>
-    <td>{d.id}</td>
+    <td className="id">{d.id}</td>
     <td className="name">{d.employee_name}</td>
     <td>{d.employee_age}</td>
     <td>{d.employee_salary}</td>
@@ -51,7 +51,7 @@ const updateItem = (i,n,a,s) => {
     return ( 
         <table className="datalist">
             <tr className="static-top">
-                <th>Id</th>
+                <th className="id">Id</th>
                 <th className="name">Name</th>
                 <th>Age</th>
                 <th>Salary</th>

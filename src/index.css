@@ -146,11 +146,15 @@ table.datalist td>img {
 table.datalist tr th, table.datalist td{width:100%;overflow: hidden;}
 table.datalist tr .name {
   max-width: 254px;
+  min-width: 254px;
+}
+table.datalist tr .id {
+  max-width: 38px;
 }
 .overflow-auto {
   overflow: auto;
   width: 100%;
-  max-height: 700px;
+  max-height: 500px;
 }
 table.datalist .action {
   min-width: 180px;
@@ -197,15 +201,16 @@ color: #dc3545;
   padding-bottom: 10px;
 }
 
-.pagination>li{
+ul.pagination-ul {
+  display: inline-block;
+  padding: 0;
+  margin: auto;
+}
+
+.pagination-ul>li{
 display: inline-block;
 padding:3px;
 margin: 0;
-}
-
-ul.pagination {
-  display: block;
-  text-align: center;
 }
 
 @media screen and (max-width: 767px) {
