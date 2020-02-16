@@ -54,9 +54,9 @@ const APICrud = () => {
         return results.json();
       })
       .then(data1 => {
-        setData(data1);
-        setFilterarr(data1.slice(0, maxitem));
-        console.log('Data List', filterarr);
+        setData(data1.data);
+        setFilterarr(data1.data);
+        console.log('Data List', filterarr, data1);
         setLoadertoggle(false);
       });
   };

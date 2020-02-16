@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DataTable from './../apicrud/DataTable';
 
 //tdata have filtered data
 const DataList = ({
@@ -46,53 +47,12 @@ const DataList = ({
     setSalary(s);
   };
 
-  // data is a state which have list of user detail, here && operator used for if jab tak data k pass value nhi jayegi tab tak map function action nhi lega
-  const dataw =
-    filterarr &&
-    filterarr.map((d, index) => {
-      return (
-        <tr>
-          <td className="id">{d.id}</td>
-          <td className="name">{d.employee_name}</td>
-          <td>{d.employee_age}</td>
-          <td>{d.employee_salary}</td>
-          <td className="action">
-            <button
-              className="btn btn-info"
-              index={d.id}
-              onClick={() =>
-                updateItem(
-                  d.id,
-                  d.employee_name,
-                  d.employee_age,
-                  d.employee_salary
-                )
-              }
-            >
-              Update
-            </button>{' '}
-            <button
-              className="btn btn-danger"
-              index={d.id}
-              onClick={() => deleteItem(d.id)}
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      );
-    });
   return (
-    <table className="datalist">
-      <tr className="static-top">
-        <th className="id">Id</th>
-        <th className="name">Name</th>
-        <th>Age</th>
-        <th>Salary</th>
-        <th className="action"></th>
-      </tr>
-      {dataw}
-    </table>
+    <DataTable
+      data={filterarr}
+      updateItem={updateItem}
+      deleteItem={deleteItem}
+    />
   );
 };
 export default DataList;
