@@ -150,7 +150,7 @@ const Pagination = () => {
   }, []);
   // [] is used to prevent fron infinite loop
 
-  const Datashow = () => {};
+  const Datashow = () => { };
 
   const [tdata, setTdata] = useState('');
 
