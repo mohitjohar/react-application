@@ -3,7 +3,6 @@ import DataList from '../components/apicrud/DateList';
 import CreateForm from '../components/apicrud/CreateForm';
 import UpdateForm from '../components/apicrud/UpdateForm';
 import Loader from '../components/apicrud/Loader';
-import Paginationl from '../components/Paginationl';
 
 const APICrud = () => {
   //This state used for toggling a CreateForm component
@@ -78,7 +77,7 @@ const APICrud = () => {
         <div className="col-md-8">
           <div className="overflow-auto">
             <DataList
-              filterarr={filterarr}
+              data={data}
               name={name}
               setName={setName}
               setLoadertoggle={setLoadertoggle}
@@ -86,7 +85,6 @@ const APICrud = () => {
               setAge={setAge}
               salary={salary}
               setSalary={setSalary}
-              data={data}
               apiDatashow={apiDatashow}
               toggle1={toggle1}
               setToggle1={setToggle1}
@@ -133,14 +131,6 @@ const APICrud = () => {
             />
           )}
           {loadertoggle && <Loader />}
-        </div>
-        <div className="col-md-8">
-          <Paginationl
-            data={data}
-            setFilterarr={setFilterarr}
-            maxitem={maxitem}
-            maxbtn={maxbtn}
-          />
         </div>
         <div className="col-md-4 text-right">
           <button onClick={addItem} className="btn btn-primary">

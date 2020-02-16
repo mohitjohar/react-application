@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import DataTable from './../apicrud/DataTable';
+import React from 'react';
+import DataTable from './././DataTable';
+import PaginationNav from './PaginationNav';
 
 //tdata have filtered data
 const DataList = ({
-  filterarr,
+  data,
   setToggle1,
   toggle1,
   setId,
@@ -28,7 +29,7 @@ const DataList = ({
             return results.json();
           })
           .then(res => {
-            console.log('Delelition Response', res);
+            console.log('Delelition Response', res, i);
             apiDatashow();
             alert('Data Deleted');
           });
@@ -48,10 +49,13 @@ const DataList = ({
   };
 
   return (
-    <DataTable
-      data={filterarr}
-      updateItem={updateItem}
+    <PaginationNav
+      data={data}
       deleteItem={deleteItem}
+      updateItem={updateItem}
+      dataPerPage={7}
+      btnPerPage={3}
+      DataTable={DataTable}
     />
   );
 };

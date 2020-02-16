@@ -187,7 +187,6 @@ table.datalist tr .id {
 .overflow-auto {
   overflow: auto;
   width: 100%;
-  height: 500px;
 }
 table.datalist .action {
   min-width: 180px;
@@ -244,6 +243,32 @@ ul.pagination-ul {
   display: inline-block;
   padding: 3px;
   margin: 0;
+}
+
+ul.nav-btns {
+  display: block;
+  text-align: center;
+  padding: 0;
+}
+
+ul.nav-btns li {
+  background-color: #007bff;
+  border-radius: 50%;
+  font-size: 14px;
+  margin: 4px;
+  color: #fff;
+  display: inline-block;
+  padding: 10px 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+ul.nav-btns li.active {
+  background-color: #1362b7;
+}
+
+.square-fill.pagination {
+  justify-content: center;
 }
 
 @media screen and (max-width: 767px) {
