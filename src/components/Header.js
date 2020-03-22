@@ -1,73 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-const Header = () => {
-  if (localStorage.token) {
-    return (
-      <header class="bg-info text-white main-header">
-        <div class="container">
-          <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand">
-              <Link to="/">
-                <img src="logo.png" />
-              </Link>
-            </a>
-            <button
-              class="navbar-toggler bg-light"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
+import {
+  Container,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
+import img from '../img/logo.png';
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-left-auto">
-                <li class="nav-item">
-                  <a class="nav-link">
-                    <Link to="/postslider1">Dynamic Page</Link>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    <Link to="/apicrud">API Crud</Link>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    <Link to="/crudsystem">CRUDSystem</Link>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    <Link to="/createform">Create Form</Link>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    <Link to="/updateform">Update Form</Link>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
-                    <Link to="/deleteform">Delete Form</Link>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">
+const Header = props => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
+
+  return (
+    <>
+      <Navbar color="light" light expand="md" className="shadow-sm main-header">
+        <Container>
+          <NavbarBrand href="/">
+            <img src={img} />
+          </NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink>
+                  <Link to="/home">Dynamic Page</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/apicrud">API Crud</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/crudsystem">CRUDSystem</Link>
+                </NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  User
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>Profile</DropdownItem>
+                  <DropdownItem>Settings</DropdownItem>
+                  <DropdownItem>
                     <Link to="/logout">logout</Link>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </header>
-    );
-  } else {
-    return '';
-  }
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Container>
+      </Navbar>
+    </>
+  );
 };
+
 export default Header;

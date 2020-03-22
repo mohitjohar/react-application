@@ -1,144 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import DataList from '../components/apicrud/DateList';
-import CreateForm from '../components/apicrud/CreateForm';
-import UpdateForm from '../components/apicrud/UpdateForm';
-import Loader from '../components/apicrud/Loader';
+import { Link } from 'react-router-dom';
+import DataTable from '../components/apicrud/DataTable';
+import Loader from '../components/Loader';
+import ApiKey from '../components/ApiKey';
+import Header from '../components/Header';
+import PaginationTable from '../components/apicrud/PaginationTable';
 
 const APICrud = () => {
-  //This state used for toggling a CreateForm component
-  const [toggle, setToggle] = useState(false);
-
-  //This state used for toggling a UpdateForm component
-  const [toggle1, setToggle1] = useState(false);
-
-  //This state used for toggling a loader
+  // This state used for toggling a loader
   const [loadertoggle, setLoadertoggle] = useState(true);
 
-  // This state used for get id from parent to child components(UpdateForm component and Datalist component),
-  // this state work as global variable
-  const [id, setId] = useState(null);
-
-  //form fields
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [salary, setSalary] = useState('');
-
-  //form alerts
-  const [agea, setAgea] = useState('');
-  const [salarya, setSalarya] = useState('');
-
-  //This  is used for store user data list
+  // This  is used for store user data list
   const [data, setData] = useState('');
 
-  //filtered data
-  const [filterarr, setFilterarr] = useState('');
-  const maxbtn = 4;
-  const maxitem = 10;
-
-  //validation
-  if (age > 110) {
-    setAgea('Please Enter valid Age');
-    setAge('');
-  }
-
-  if (salary > 10000000) {
-    setSalarya('Please Enter valid Salary');
-    setSalary('');
-  }
-
-  //fetch all data using this function
+  // fetch all data using this function
   const apiDatashow = () => {
-    fetch('http://dummy.restapiexample.com/api/v1/employees')
+    fetch(ApiKey.api)
       .then(results => {
         return results.json();
       })
       .then(data1 => {
         setData(data1.data);
-        setFilterarr(data1.data);
-        console.log('Data List', filterarr, data1);
         setLoadertoggle(false);
       });
   };
 
-  //auto reload
+  // auto reload
   useEffect(() => {
     apiDatashow();
   }, []);
   // [] is used to prevent fron infinite loop
 
-  //show create form
-  const addItem = () => {
-    setToggle(!toggle);
+  // delete method start
+  const deleteItem = i => {
+    const url = ApiKey.apidetete + i;
+    if (window.confirm('Do you want to delete this?')) {
+      setLoadertoggle(true);
+      try {
+        fetch(url, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(results => {
+            return results.json();
+          })
+          .then(res => {
+            console.log('Delelition Response', res, i);
+            apiDatashow();
+            alert('Data Deleted');
+          });
+      } catch (error) {
+        console.error('Deletition Error:', error);
+      }
+    }
   };
+  // delete method end
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-8">
-          <div className="overflow-auto">
-            <DataList
+    <>
+      <Header />
+      <div className="container pt-3">
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 className="mb-0">User list</h4>
+          <Link to="adduser">
+            <button className="btn btn-primary">Add User</button>
+          </Link>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <PaginationTable
               data={data}
-              name={name}
-              setName={setName}
-              setLoadertoggle={setLoadertoggle}
-              age={age}
-              setAge={setAge}
-              salary={salary}
-              setSalary={setSalary}
-              apiDatashow={apiDatashow}
-              toggle1={toggle1}
-              setToggle1={setToggle1}
-              setId={setId}
+              deleteItem={deleteItem}
+              dataPerPage={6}
+              DataTable={DataTable}
             />
           </div>
-          <div className="position-absuform">
-            {toggle1 && (
-              <UpdateForm
-                salarya={salarya}
-                agea={agea}
-                name={name}
-                setLoadertoggle={setLoadertoggle}
-                setName={setName}
-                age={age}
-                setAge={setAge}
-                salary={salary}
-                setSalary={setSalary}
-                apiDatashow={apiDatashow}
-                toggle1={toggle1}
-                setToggle1={setToggle1}
-                id={id}
-              />
-            )}
-          </div>
         </div>
-        <div className="col-md-4">
-          {/* if 'toggle' variable is true then show 'create form' else null */}
-          {/* {toggle ?<CreateForm/>:null} */}
-          {/* if both variables(toggle,CreateForm) true then show create form */}
-          {toggle && (
-            <CreateForm
-              name={name}
-              setName={setName}
-              age={age}
-              setAge={setAge}
-              salary={salary}
-              setSalary={setSalary}
-              salarya={salarya}
-              agea={agea}
-              apiDatashow={apiDatashow}
-              setToggle={setToggle}
-              setLoadertoggle={setLoadertoggle}
-            />
-          )}
-          {loadertoggle && <Loader />}
-        </div>
-        <div className="col-md-4 text-right">
-          <button onClick={addItem} className="btn btn-primary">
-            Add Item
-          </button>
-        </div>
+        {loadertoggle && <Loader />}
       </div>
-    </div>
+    </>
   );
 };
 

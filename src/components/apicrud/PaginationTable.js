@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from 'react-pagination-library';
-import 'react-pagination-library/build/css/index.css'; //for css
+import 'react-pagination-library/build/css/index.css'; // for css
 
-const PaginationNav = ({
-  data,
-  dataPerPage = 10,
-  btnPerPage = 3,
-  DataTable,
-  deleteItem,
-  updateItem
-}) => {
+const PaginationTable = ({ data, dataPerPage = 10, DataTable, deleteItem }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const handleClick = event => {
     setCurrentPage(event);
@@ -25,34 +18,20 @@ const PaginationNav = ({
     pageNumbers.push(i);
   }
 
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  // Logic for displaying btn numbers
-  const btnNumbers = [];
-  for (let i = 1; i <= Math.ceil(pageNumbers.length / btnPerPage); i++) {
-    btnNumbers.push(i);
-  }
-
   return (
-    <>
+    <div className="mkpaginationtable">
       <DataTable
         data={data.slice(indexOfFirstData, indexOfLastData)}
         deleteItem={deleteItem}
-        updateItem={updateItem}
       />
       <Pagination
         currentPage={currentPage}
-        totalPages={btnNumbers.length}
+        totalPages={pageNumbers.length}
         changeCurrentPage={handleClick}
         theme="square-fill"
       />
-    </>
+    </div>
   );
 };
 
-export default PaginationNav;
+export default PaginationTable;
