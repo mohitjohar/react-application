@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../img/logo.png';
+import Loader from '../components/Loader';
 
 const LoginForm = p => {
   if (localStorage.token) {
     p.history.push('/');
   }
   // fields
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('eve.holt@reqres.in');
   const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState('');
+
+  // alert
+  const [alert, setAlert] = useState(false);
+
+  // Loader
+  const [loader, setLoader] = useState(false);
 
   const handleSubmit = () => {
+    setLoader(true);
     const url = 'https://reqres.in/api/login';
     const data = {
-      email: 'eve.holt@reqres.in',
-      password: 'pestol'
+      email,
+      password
     };
 
     try {
@@ -32,9 +40,12 @@ const LoginForm = p => {
             console.log('token:', res.token);
             p.history.push('/');
             window.location.reload();
-            alert('Login Successfully');
+            setLoader(false);
+            setAlert(false);
           } else {
-            alert('Enter valid Email or Password');
+            setAlert(true);
+            setLoader(false);
+            // alert('Enter valid Email or Password');
           }
         });
     } catch (error) {
@@ -44,36 +55,56 @@ const LoginForm = p => {
   console.log('email', email, 'password', password);
 
   return (
-    <div className="container">
-      <form
-        className="maxw-500 mrtb-100"
-        onSubmit={handleSubmit}
-        action="javascript:simpleCart.checkout()"
-      >
-        <fieldset>
-          <legend> Login</legend>
-          <input
-            type="text"
-            name="email"
-            className="form-control"
-            placeholder="Your Email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            name="password"
-            className="form-control"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <button className="btn btn-primary" type="submit">
-            Log In
-          </button>
-        </fieldset>
-        Don't have an Account? <Link to="/register">SignUp Here</Link>
-      </form>
+    <div className="height100 d-flex justify-content-center align-items-center">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4" />
+          <div className="col-md-4">
+            <form
+              className="card-body shadow rounded"
+              onSubmit={handleSubmit}
+              action="javascript:simpleCart.checkout()"
+            >
+              <div className="mb-3 text-center">
+                <h5 className="text-center mb-3">Login</h5>
+                <img src={logo} className="formlogo" />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  name="email"
+                  className={alert ? 'form-control is-invalid' : 'form-control'}
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <div className="invalid-feedback">
+                  Please Enter Valid Emial or Password
+                </div>
+              </div>
+              <div className="mb-3">
+                <input
+                  type="password"
+                  name="password"
+                  className={alert ? 'form-control is-invalid' : 'form-control'}
+                  placeholder="Password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="d-flex justify-content-between align-items-center">
+                <span className="small">
+                  Don't have an Account? <Link to="/register">SignUp Here</Link>
+                </span>
+                <button className="btn btn-primary" type="submit">
+                  Log In
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {loader ? <Loader /> : ''}
     </div>
   );
 };

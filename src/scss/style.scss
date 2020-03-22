@@ -1,6 +1,14 @@
 // fontawesome
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
+.height100 {
+  min-height: 100vh;
+}
+
+img.formlogo {
+  max-width: 119px;
+}
+
 .navbar-brand {
   img {
     max-width: 94px;

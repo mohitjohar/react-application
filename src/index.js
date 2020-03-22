@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/style.scss';
 import { Route, BrowserRouter as Router1 } from 'react-router-dom';
 import LoginForm from './pages/LoginForm';
-import RegisterForm from './pages/Register';
 import CRUDSystem from './pages/CRUDSystem';
 import Update from './components/apicrud/Update';
 import AddUser from './components/apicrud/Create';
@@ -20,7 +19,7 @@ const routing = (
       <Route exact path="/" component={DynamicPages} />
       <Route path="/home" component={DynamicPages} />
       <Route path="/login" component={LoginForm} />
-      <Route path="/register" component={RegisterForm} />
+
       <Route path="/logout" component={Logout} />
       <Route path="/crudsystem" component={CRUDSystem} />
       <Route path="/apicrud" component={APICrud} />
