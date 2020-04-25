@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DataTable = ({ data, deleteItem }) => {
+const DataTable = ({ data, deleteMethod }) => {
   return (
     <>
       <div className="overflow-auto">
-        <table className="datalist table table-striped">
+        <table className="datalist table table-striped table-hover">
           <thead>
             <tr>
               <th className="id">Id</th>
@@ -31,7 +31,7 @@ const DataTable = ({ data, deleteItem }) => {
                       <button
                         className="btn btn-danger"
                         index={d.id}
-                        onClick={() => deleteItem(d.id)}
+                        onClick={() => deleteMethod(d.id)}
                       >
                         Delete
                       </button>

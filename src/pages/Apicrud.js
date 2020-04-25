@@ -32,7 +32,7 @@ const APICrud = () => {
   // [] is used to prevent fron infinite loop
 
   // delete method start
-  const deleteItem = i => {
+  const deleteMethod = i => {
     const url = ApiKey.apidetete + i;
     if (window.confirm('Do you want to delete this?')) {
       setLoadertoggle(true);
@@ -72,7 +72,7 @@ const APICrud = () => {
           <div className="col-md-12">
             <PaginationTable
               data={data}
-              deleteItem={deleteItem}
+              deleteMethod={deleteMethod}
               dataPerPage={6}
               DataTable={DataTable}
             />

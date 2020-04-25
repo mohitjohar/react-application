@@ -12,6 +12,7 @@ import Details from './pages/Details';
 import DynamicPages from './pages/DynamicPages';
 import Logout from './pages/Logout';
 import * as serviceWorker from './serviceWorker';
+import NodeMysql from './pages/NodeMysql';
 
 const routing = (
   <>
@@ -19,7 +20,7 @@ const routing = (
       <Route exact path="/" component={DynamicPages} />
       <Route path="/home" component={DynamicPages} />
       <Route path="/login" component={LoginForm} />
-
+      <Route path="/nodemysql" component={NodeMysql} />
       <Route path="/logout" component={Logout} />
       <Route path="/crudsystem" component={CRUDSystem} />
       <Route path="/apicrud" component={APICrud} />
