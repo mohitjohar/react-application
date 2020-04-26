@@ -19,11 +19,9 @@ class NodeMysql extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch(`/customers`)
+    fetch()
       .then(response => response.json())
-      .then(state => {
-        console.log('mkd', state);
-      });
+      .then(state => this.setState(state));
   }
 
   render() {

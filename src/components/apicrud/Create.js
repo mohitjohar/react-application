@@ -7,57 +7,38 @@ import Header from '../Header';
 const AddUser = () => {
   // form fields
   const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [salary, setSalary] = useState('');
+  const [email, setEmail] = useState('');
+  const [image, setImage] = useState('');
 
   // Loader
   const [loader, setLoader] = useState(false);
 
-  // form alerts
-  const [agea, setAgea] = useState(false);
-  const [salarya, setSalarya] = useState(false);
-
   const handleSubmit = e => {
     e.preventDefault();
-    // validation
-    if (age > 110) {
-      setAgea(true);
-      setAge('');
-    }
 
-    if (salary > 10000000) {
-      setSalarya(true);
-      setSalary('');
-    }
-
-    const url = ApiKey.apicreate;
+    const url = `/customers`;
     const adata = {
+      email,
       name,
-      salary,
-      age
+      image
     };
+    setLoader(true);
 
-    if (age < 110 && salary < 10000000) {
-      setLoader(true);
-      setAgea(false);
-      setSalarya(false);
-
-      try {
-        fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(adata),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-          .then(res => res.json())
-          .then(res => {
-            console.log('Creation Response:', res);
-            setLoader(false);
-          });
-      } catch (error) {
-        console.error('Creation Error:', error);
-      }
+    try {
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(adata),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log('Creation Response:', res);
+          setLoader(false);
+        });
+    } catch (error) {
+      console.error('Creation Error:', error);
     }
   };
 
@@ -91,27 +72,25 @@ const AddUser = () => {
               </div>
               <div className="col-md-12 mb-3">
                 <input
-                  type="number"
-                  name="age"
-                  className={agea ? 'form-control is-invalid' : 'form-control'}
+                  type="email"
+                  name="email"
+                  className="form-control"
                   required="required"
-                  placeholder="Enter Age"
-                  value={age}
-                  onChange={e => setAge(e.target.value)}
+                  placeholder="Enter Email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
-                <div className="invalid-feedback">Please Enter Valid Age</div>
+                <div className="invalid-feedback">Please Enter Valid Email</div>
               </div>
               <div className="col-md-12 mb-3">
                 <input
-                  type="number"
-                  name="salery"
-                  className={
-                    salarya ? 'form-control is-invalid' : 'form-control'
-                  }
+                  type="text"
+                  name="Image"
+                  className="form-control"
                   required="required"
-                  placeholder="Enter Salary"
-                  value={salary}
-                  onChange={e => setSalary(e.target.value)}
+                  placeholder="Enter Image"
+                  value={image}
+                  onChange={e => setImage(e.target.value)}
                 />
                 <div className="invalid-feedback">
                   Please Enter Valid Salery

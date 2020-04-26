@@ -8,19 +8,16 @@ const PostGrid = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetch(ApiKey.alp1)
+    fetch('/customers')
       .then(results => {
         return results.json();
       })
       .then(data1 => {
-        // here data = parent field from api
-        // lists is a variable
-
-        setData(data1.data);
-        if (data1.data) {
+        setData(data1);
+        if (data1) {
           setLoader(false);
         }
-        console.log('State', data1.data);
+        console.log('State1', data);
       });
   }, []);
 
@@ -30,14 +27,14 @@ const PostGrid = () => {
       return (
         <div className="col-md-4 mb-4">
           <div className="mb-3">
-            <Link to={`/details/${index + 1}`}>
+            <Link to={`/details/${data.id}`}>
               <img
-                src={data.avatar}
+                src={data.image}
                 className="post-avatar w-100 rounded-circle"
               />
             </Link>
           </div>
-          <strong>Name</strong> {`${data.first_name} ${data.last_name}`}
+          <strong>Name</strong> {data.name}
           <br />
           <strong>Email</strong> {data.email}
         </div>

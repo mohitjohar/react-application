@@ -15,12 +15,12 @@ const APICrud = () => {
 
   // fetch all data using this function
   const apiDatashow = () => {
-    fetch(ApiKey.api)
+    fetch('/customers')
       .then(results => {
         return results.json();
       })
       .then(data1 => {
-        setData(data1.data);
+        setData(data1);
         setLoadertoggle(false);
       });
   };
@@ -33,7 +33,7 @@ const APICrud = () => {
 
   // delete method start
   const deleteMethod = i => {
-    const url = ApiKey.apidetete + i;
+    const url = `/customers/${i}`;
     if (window.confirm('Do you want to delete this?')) {
       setLoadertoggle(true);
       try {
@@ -47,7 +47,6 @@ const APICrud = () => {
             return results.json();
           })
           .then(res => {
-            console.log('Delelition Response', res, i);
             apiDatashow();
             alert('Data Deleted');
           });
@@ -58,15 +57,46 @@ const APICrud = () => {
   };
   // delete method end
 
+  // delete All method start
+  const deleteAllData = () => {
+    const url = `/customers`;
+    if (window.confirm('Do you want to delete all data?')) {
+      setLoadertoggle(true);
+      try {
+        fetch(url, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(results => {
+            return results.json();
+          })
+          .then(res => {
+            apiDatashow();
+            alert('All Data Deleted');
+          });
+      } catch (error) {
+        console.error('Deletition Error:', error);
+      }
+    }
+  };
+  // delete All method end
+
   return (
     <>
       <Header />
       <div className="container pt-3">
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h4 className="mb-0">User list</h4>
-          <Link to="adduser">
-            <button className="btn btn-primary">Add User</button>
-          </Link>
+          <div>
+            <button className="btn btn-danger mr-2" onClick={deleteAllData}>
+              Delete All Users
+            </button>
+            <Link to="adduser">
+              <button className="btn btn-primary">Add User</button>
+            </Link>
+          </div>
         </div>
         <div className="row">
           <div className="col-md-12">

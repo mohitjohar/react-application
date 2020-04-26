@@ -1,103 +1,103 @@
-const sql = require("./db");
+const sql = require('./db');
 
 // constructor
 const Customer = function(customer) {
-  this.name = customer.name;
   this.email = customer.email;
+  this.name = customer.name;
   this.image = customer.image;
 };
 
 Customer.create = (newCustomer, result) => {
-  sql.query("INSERT INTO customer SET ?", newCustomer, (err, res) => {
+  sql.query('INSERT INTO customers SET ?', newCustomer, (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.log('error: ', err);
       result(err, null);
       return;
     }
 
-    console.log("created customer: ", { id: res.insertId, ...newCustomer });
+    console.log('created customer: ', { id: res.insertId, ...newCustomer });
     result(null, { id: res.insertId, ...newCustomer });
   });
 };
 
 Customer.findById = (customerId, result) => {
-  sql.query(`SELECT * FROM customer WHERE Id = ${customerId}`, (err, res) => {
+  sql.query(`SELECT * FROM customers WHERE id = ${customerId}`, (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.log('error: ', err);
       result(err, null);
       return;
     }
 
     if (res.length) {
-      console.log("found customer: ", res[0]);
+      console.log('found customer: ', res[0]);
       result(null, res[0]);
       return;
     }
 
     // not found Customer with the id
-    result({ kind: "not_found" }, null);
+    result({ kind: 'not_found' }, null);
   });
 };
 
 Customer.getAll = result => {
-
-  sql.query("SELECT * FROM customer", (err, res) => {
+  sql.query('SELECT * FROM customers', (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.log('error: ', err);
       result(null, err);
       return;
     }
-    console.log("customers: ", res);
+
+    console.log('customers: ', res);
     result(null, res);
   });
 };
 
 Customer.updateById = (id, customer, result) => {
   sql.query(
-    "UPDATE customer SET Name = ?, Email = ?, Image = ? WHERE Id = ?",
-    [customer.email, customer.name, customer.active, id],
+    'UPDATE customers SET email = ?, name = ?, image = ? WHERE id = ?',
+    [customer.email, customer.name, customer.image, id],
     (err, res) => {
       if (err) {
-        console.log("error: ", err);
+        console.log('error: ', err);
         result(null, err);
         return;
       }
 
       if (res.affectedRows == 0) {
         // not found Customer with the id
-        result({ kind: "not_found" }, null);
+        result({ kind: 'not_found' }, null);
         return;
       }
 
-      console.log("updated customer: ", { id: id, ...customer });
-      result(null, { id: id, ...customer });
+      console.log('updated customer: ', { id, ...customer });
+      result(null, { id, ...customer });
     }
   );
 };
 
 Customer.remove = (id, result) => {
-  sql.query("DELETE FROM customer WHERE Id = ?", id, (err, res) => {
+  sql.query('DELETE FROM customers WHERE id = ?', id, (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.log('error: ', err);
       result(null, err);
       return;
     }
 
     if (res.affectedRows == 0) {
       // not found Customer with the id
-      result({ kind: "not_found" }, null);
+      result({ kind: 'not_found' }, null);
       return;
     }
 
-    console.log("deleted customer with Id: ", id);
+    console.log('deleted customer with id: ', id);
     result(null, res);
   });
 };
 
 Customer.removeAll = result => {
-  sql.query("DELETE FROM customer", (err, res) => {
+  sql.query('DELETE FROM customers', (err, res) => {
     if (err) {
-      console.log("error: ", err);
+      console.log('error: ', err);
       result(null, err);
       return;
     }

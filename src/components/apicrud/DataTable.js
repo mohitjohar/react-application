@@ -10,8 +10,7 @@ const DataTable = ({ data, deleteMethod }) => {
             <tr>
               <th className="id">Id</th>
               <th className="name">Name</th>
-              <th>Age</th>
-              <th>Salary</th>
+              <th>Image</th>
               <th className="action" />
             </tr>
           </thead>
@@ -21,9 +20,8 @@ const DataTable = ({ data, deleteMethod }) => {
                 return (
                   <tr>
                     <td className="id">{d.id}</td>
-                    <td className="name">{d.employee_name}</td>
-                    <td>{d.employee_age}</td>
-                    <td>{d.employee_salary}</td>
+                    <td className="name">{d.name}</td>
+                    <td>{d.image}</td>
                     <td className="action">
                       <Link to={`/update/${d.id}`}>
                         <button className="btn btn-info mr-2">Update</button>

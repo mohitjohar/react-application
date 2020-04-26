@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
   res.send(array);
   res.end();
 });
+
 require('./app/routes/customer.router')(app);
 
 app.listen(port);

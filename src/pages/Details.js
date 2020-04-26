@@ -13,13 +13,13 @@ const Details = ({ match }) => {
     () => {
       // here match is a prop
       // 'match.params.detailId' have page id , this is used for dynamic page, detailId is props value from Router in the pages.js file
-      fetch(`https://reqres.in/api/users/${match.params.detailId}`)
+      fetch(`/customers/${match.params.detailId}`)
         .then(results => {
           return results.json();
         })
         .then(data => {
           // update value of data state variable
-          setData(data.data);
+          setData(data);
           setLoader(false);
         });
     },
@@ -34,13 +34,12 @@ const Details = ({ match }) => {
         <div className="container">
           <div className="mb-3">
             <img
-              src={data && data.avatar}
+              src={data && data.image}
               className="post-avatar rounded-circle"
             />
           </div>
           <p>
-            <strong>User Name:</strong> {data && data.first_name}{' '}
-            {data && data.last_name}
+            <strong>User Name:</strong> {data && data.name}
           </p>
           <p>
             <strong>User Email:</strong> {data && data.email}
