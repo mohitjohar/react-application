@@ -15,12 +15,12 @@ const APICrud = () => {
 
   // fetch all data using this function
   const apiDatashow = () => {
-    fetch('/customers')
+    fetch('http://localhost/phpapi/api/customers/read.php')
       .then(results => {
         return results.json();
       })
       .then(data1 => {
-        setData(data1);
+        setData(data1.records);
         setLoadertoggle(false);
       });
   };

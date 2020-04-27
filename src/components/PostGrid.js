@@ -8,13 +8,13 @@ const PostGrid = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetch('/customers')
+    fetch('http://localhost/phpapi/api/customers/read.php')
       .then(results => {
         return results.json();
       })
       .then(data1 => {
-        setData(data1);
-        if (data1) {
+        setData(data1.records);
+        if (data1.records) {
           setLoader(false);
         }
         console.log('State1', data);

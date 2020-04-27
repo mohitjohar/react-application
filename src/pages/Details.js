@@ -13,7 +13,9 @@ const Details = ({ match }) => {
     () => {
       // here match is a prop
       // 'match.params.detailId' have page id , this is used for dynamic page, detailId is props value from Router in the pages.js file
-      fetch(`/customers/${match.params.detailId}`)
+      fetch(
+        `http://localhost/phpapi/api/customers/read_one.php?id=${match.params.detailId}`
+      )
         .then(results => {
           return results.json();
         })

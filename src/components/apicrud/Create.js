@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import ApiKey from '../ApiKey';
 import Loader from '../Loader';
 import Header from '../Header';
@@ -16,30 +17,42 @@ const AddUser = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const url = `/customers`;
+    const url = `http://localhost/phpapi/api/customers/create.php`;
     const adata = {
-      email,
-      name,
-      image
+      name: name,
+      email: email,
+      description: 'The best pillow for amazing programmers.',
+      image: image,
+      created: '2018-06-01 00:35:07'
     };
     setLoader(true);
 
-    try {
-      fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(adata),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    axios
+      .post(url, adata)
+      .then(res => {
+        console.log(`statusCode: ${res.statusCode}`);
+        console.log(res);
       })
-        .then(res => res.json())
-        .then(res => {
-          console.log('Creation Response:', res);
-          setLoader(false);
-        });
-    } catch (error) {
-      console.error('Creation Error:', error);
-    }
+      .catch(error => {
+        console.error(error);
+      });
+
+    // try {
+    //   fetch(url, {
+    //     method: 'POST',
+    //     body: JSON.stringify(adata),
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     }
+    //   })
+    //     .then(res => res.json())
+    //     .then(res => {
+    //       console.log('Creation Response:', res);
+    //       setLoader(false);
+    //     });
+    // } catch (error) {
+    //   console.error('Creation Error:', error);
+    // }
   };
 
   return (
