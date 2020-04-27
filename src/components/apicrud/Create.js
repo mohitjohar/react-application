@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import ApiKey from '../ApiKey';
 import Loader from '../Loader';
 import Header from '../Header';
@@ -10,6 +9,8 @@ const AddUser = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [image, setImage] = useState('');
+  const [description, setDescription] = useState('');
+  const [created, setCreated] = useState('2018-06-01 00:35:07');
 
   // Loader
   const [loader, setLoader] = useState(false);
@@ -17,42 +18,32 @@ const AddUser = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const url = `http://localhost/phpapi/api/customers/create.php`;
+    const url = `${ApiKey.api}/customers/create.php`;
     const adata = {
       name: name,
       email: email,
-      description: 'The best pillow for amazing programmers.',
+      description: description,
       image: image,
-      created: '2018-06-01 00:35:07'
+      created: created
     };
     setLoader(true);
 
-    axios
-      .post(url, adata)
-      .then(res => {
-        console.log(`statusCode: ${res.statusCode}`);
-        console.log(res);
+    try {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(adata)
       })
-      .catch(error => {
-        console.error(error);
-      });
-
-    // try {
-    //   fetch(url, {
-    //     method: 'POST',
-    //     body: JSON.stringify(adata),
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //       console.log('Creation Response:', res);
-    //       setLoader(false);
-    //     });
-    // } catch (error) {
-    //   console.error('Creation Error:', error);
-    // }
+        .then(res => res.json())
+        .then(res => {
+          console.log('Creation Response:', res);
+          setLoader(false);
+        });
+    } catch (error) {
+      console.error('Creation Error:', error);
+    }
   };
 
   return (
@@ -109,12 +100,19 @@ const AddUser = () => {
                   Please Enter Valid Salery
                 </div>
               </div>
+              <div className="col-md-12 mb-3">
+                <textarea
+                  name="description"
+                  className="form-control"
+                  required="required"
+                  placeholder="Enter Description"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                ></textarea>
+                <div className="invalid-feedback">Please Enter description</div>
+              </div>
               <div className="col-md-12 mb-3 text-right">
-                <input
-                  type="submit"
-                  className="btn btn-primary"
-                  value="Update"
-                />
+                <input type="submit" className="btn btn-primary" value="Add" />
               </div>
             </form>
           </div>

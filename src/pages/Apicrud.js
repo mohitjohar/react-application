@@ -15,7 +15,7 @@ const APICrud = () => {
 
   // fetch all data using this function
   const apiDatashow = () => {
-    fetch('http://localhost/phpapi/api/customers/read.php')
+    fetch(`${ApiKey.api}/customers/read.php`)
       .then(results => {
         return results.json();
       })
@@ -33,15 +33,18 @@ const APICrud = () => {
 
   // delete method start
   const deleteMethod = i => {
-    const url = `/customers/${i}`;
+    const url = `${ApiKey.api}/customers/delete.php`;
     if (window.confirm('Do you want to delete this?')) {
       setLoadertoggle(true);
       try {
         fetch(url, {
-          method: 'DELETE',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify({
+            id: i
+          })
         })
           .then(results => {
             return results.json();
@@ -90,9 +93,9 @@ const APICrud = () => {
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h4 className="mb-0">User list</h4>
           <div>
-            <button className="btn btn-danger mr-2" onClick={deleteAllData}>
+            {/* <button className="btn btn-danger mr-2" onClick={deleteAllData}>
               Delete All Users
-            </button>
+            </button> */}
             <Link to="adduser">
               <button className="btn btn-primary">Add User</button>
             </Link>

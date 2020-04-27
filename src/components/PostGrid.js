@@ -8,7 +8,7 @@ const PostGrid = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetch('http://localhost/phpapi/api/customers/read.php')
+    fetch(`${ApiKey.api}/customers/read.php`)
       .then(results => {
         return results.json();
       })

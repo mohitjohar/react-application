@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Loader from '../components/Loader';
 import Header from '../components/Header';
+import ApiKey from '../components/ApiKey';
 
 const Details = ({ match }) => {
   // here data is state variable, setData is a function whitch have value of data variable
@@ -13,9 +14,7 @@ const Details = ({ match }) => {
     () => {
       // here match is a prop
       // 'match.params.detailId' have page id , this is used for dynamic page, detailId is props value from Router in the pages.js file
-      fetch(
-        `http://localhost/phpapi/api/customers/read_one.php?id=${match.params.detailId}`
-      )
+      fetch(`${ApiKey.api}/customers/read_one.php?id=${match.params.detailId}`)
         .then(results => {
           return results.json();
         })
