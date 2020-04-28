@@ -13,11 +13,14 @@ const PostGrid = () => {
         return results.json();
       })
       .then(data1 => {
-        setData(data1.records);
         if (data1.records) {
           setLoader(false);
+          setData(data1.records);
         }
-        console.log('State1', data);
+        if (data1.message == 'No customers found.') {
+          setLoader(false);
+        }
+        console.log('State1', data, data1);
       });
   }, []);
 

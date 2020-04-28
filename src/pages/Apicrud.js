@@ -20,8 +20,13 @@ const APICrud = () => {
         return results.json();
       })
       .then(data1 => {
-        setData(data1.records);
-        setLoadertoggle(false);
+        if (data1.records) {
+          setData(data1.records);
+          setLoadertoggle(false);
+        }
+        if (data1.message == 'No customers found.') {
+          setLoadertoggle(false);
+        }
       });
   };
 
