@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import DataTable from '../components/apicrud/DataTable';
-import Loader from '../components/Loader';
-import ApiKey from '../components/ApiKey';
-import Header from '../components/Header';
-import PaginationTable from '../components/apicrud/PaginationTable';
+import DataTable from '../../components/apicrud/DataTable';
+import Loader from '../../components/Loader';
+import ApiKey from '../../components/ApiKey';
+import Header from '../../components/Header';
+import PaginationTable from '../../components/apicrud/PaginationTable';
 
 const APICrud = () => {
   // This state used for toggling a loader
@@ -15,16 +15,13 @@ const APICrud = () => {
 
   // fetch all data using this function
   const apiDatashow = () => {
-    fetch(`${ApiKey.api}/customers/read.php`)
+    fetch(`${ApiKey.api1}/customer/read`)
       .then(results => {
         return results.json();
       })
       .then(data1 => {
-        if (data1.records) {
-          setData(data1.records);
-          setLoadertoggle(false);
-        }
-        if (data1.message == 'No customers found.') {
+        if (data1) {
+          setData(data1);
           setLoadertoggle(false);
         }
       });
@@ -38,37 +35,8 @@ const APICrud = () => {
 
   // delete method start
   const deleteMethod = i => {
-    const url = `${ApiKey.api}/customers/delete.php`;
+    const url = `${ApiKey.api1}/customer/delete/${i}`;
     if (window.confirm('Do you want to delete this?')) {
-      setLoadertoggle(true);
-      try {
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: i
-          })
-        })
-          .then(results => {
-            return results.json();
-          })
-          .then(res => {
-            apiDatashow();
-            alert('Data Deleted');
-          });
-      } catch (error) {
-        console.error('Deletition Error:', error);
-      }
-    }
-  };
-  // delete method end
-
-  // delete All method start
-  const deleteAllData = () => {
-    const url = `/customers`;
-    if (window.confirm('Do you want to delete all data?')) {
       setLoadertoggle(true);
       try {
         fetch(url, {
@@ -76,20 +44,18 @@ const APICrud = () => {
           headers: {
             'Content-Type': 'application/json'
           }
-        })
-          .then(results => {
-            return results.json();
-          })
-          .then(res => {
+        }).then(res => {
+          if (res.status == 200) {
             apiDatashow();
-            alert('All Data Deleted');
-          });
+            alert('Data Deleted');
+          }
+        });
       } catch (error) {
         console.error('Deletition Error:', error);
       }
     }
   };
-  // delete All method end
+  // delete method end
 
   return (
     <>
@@ -98,9 +64,6 @@ const APICrud = () => {
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h4 className="mb-0">User list</h4>
           <div>
-            {/* <button className="btn btn-danger mr-2" onClick={deleteAllData}>
-              Delete All Users
-            </button> */}
             <Link to="adduser">
               <button className="btn btn-primary">Add User</button>
             </Link>

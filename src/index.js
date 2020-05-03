@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/style.scss';
 import { Route, BrowserRouter as Router1 } from 'react-router-dom';
-import LoginForm from './pages/LoginForm';
+import LoginForm from './pages/Login';
 import CRUDSystem from './pages/CRUDSystem';
-import Update from './components/apicrud/Update';
-import AddUser from './components/apicrud/Create';
+import Update from './pages/Apicrud/Update';
+import AddUser from './pages/Apicrud/Add';
 import APICrud from './pages/Apicrud';
-import Details from './pages/Details';
-import DynamicPages from './pages/DynamicPages';
+import Details from './pages/Detail';
+import Home from './pages/Home';
 import Logout from './pages/Logout';
 import * as serviceWorker from './serviceWorker';
 import NodeMysql from './pages/NodeMysql';
@@ -17,8 +17,8 @@ import NodeMysql from './pages/NodeMysql';
 const routing = (
   <>
     <Router1>
-      <Route exact path="/" component={DynamicPages} />
-      <Route path="/home" component={DynamicPages} />
+      <Route exact path="/" component={Home} />
+      <Route path="/home" component={Home} />
       <Route path="/login" component={LoginForm} />
       <Route path="/nodemysql" component={NodeMysql} />
       <Route path="/logout" component={Logout} />

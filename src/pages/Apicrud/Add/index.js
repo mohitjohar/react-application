@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ApiKey from '../ApiKey';
-import Loader from '../Loader';
-import Header from '../Header';
+import ApiKey from '../../../components/ApiKey';
+import Loader from '../../../components/Loader';
+import Header from '../../../components/Header';
 
-const AddUser = () => {
+const AddUser = p => {
   // form fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
-  const [created, setCreated] = useState('2018-06-01 00:35:07');
 
   // Loader
   const [loader, setLoader] = useState(false);
@@ -18,13 +17,11 @@ const AddUser = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const url = `${ApiKey.api}/customers/create.php`;
+    const url = `${ApiKey.api1}/customer/create`;
     const adata = {
-      name: name,
-      email: email,
-      description: description,
-      image: image,
-      created: created
+      name,
+      email,
+      image
     };
     setLoader(true);
 
@@ -35,12 +32,12 @@ const AddUser = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(adata)
-      })
-        .then(res => res.json())
-        .then(res => {
-          console.log('Creation Response:', res);
+      }).then(res => {
+        if (res.status == 200) {
           setLoader(false);
-        });
+          p.history.push('/apicrud');
+        }
+      });
     } catch (error) {
       console.error('Creation Error:', error);
     }
@@ -100,7 +97,7 @@ const AddUser = () => {
                   Please Enter Valid Salery
                 </div>
               </div>
-              <div className="col-md-12 mb-3">
+              {/* <div className="col-md-12 mb-3">
                 <textarea
                   name="description"
                   className="form-control"
@@ -108,9 +105,9 @@ const AddUser = () => {
                   placeholder="Enter Description"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
-                ></textarea>
+                />
                 <div className="invalid-feedback">Please Enter description</div>
-              </div>
+              </div> */}
               <div className="col-md-12 mb-3 text-right">
                 <input type="submit" className="btn btn-primary" value="Add" />
               </div>

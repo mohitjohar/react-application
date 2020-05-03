@@ -3,11 +3,9 @@ const Customer = require('../models/customer.model');
 // Create and Save a new Customer
 exports.create = (req, res) => {
   // Validate request
-  const params = req.body;
-
-  if (!params) {
+  if (!req.body) {
     res.status(400).send({
-      message: 'Content can not be empty!'
+      message: "Content can not be empty!"
     });
   }
 
@@ -23,8 +21,7 @@ exports.create = (req, res) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || 'Some error occurred while creating the Customer.',
-        mkbody: ''
+          err.message || "Some error occurred while creating the Customer."
       });
     else res.send(data);
   });

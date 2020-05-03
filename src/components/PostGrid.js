@@ -8,18 +8,16 @@ const PostGrid = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetch(`${ApiKey.api}/customers/read.php`)
+    fetch(`${ApiKey.api1}/customer/read`)
       .then(results => {
         return results.json();
       })
       .then(data1 => {
-        if (data1.records) {
+        if (data1) {
           setLoader(false);
-          setData(data1.records);
+          setData(data1);
         }
-        if (data1.message == 'No customers found.') {
-          setLoader(false);
-        }
+
         console.log('State1', data, data1);
       });
   }, []);

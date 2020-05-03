@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import PostGrid from '../components/PostGrid';
-import Header from '../components/Header';
+import PostGrid from '../../components/PostGrid';
+import Header from '../../components/Header';
 
-const DynamicPages = props => {
+const Home = props => {
   if (localStorage.token) {
   } else {
     props.history.push('/login');
@@ -19,4 +19,4 @@ const DynamicPages = props => {
   );
 };
 
-export default DynamicPages;
+export default Home;

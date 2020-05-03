@@ -30,7 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://helmsmangroup.000webhostapp.com",
+  "proxy": "https://fir-node-1bf4a.web.app/",
   "eslintConfig": {
     "extends": "react-app"
   },
