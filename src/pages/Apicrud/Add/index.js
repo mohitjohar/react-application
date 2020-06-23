@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ApiKey from '../../../components/ApiKey';
 import Loader from '../../../components/Loader';
@@ -9,7 +9,7 @@ const AddUser = p => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
+  // const [description, setDescription] = useState('');
 
   // Loader
   const [loader, setLoader] = useState(false);

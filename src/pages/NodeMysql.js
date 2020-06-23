@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 
 class NodeMysql extends React.Component {
   constructor(props) {

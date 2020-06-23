@@ -30,6 +30,7 @@ const PostGrid = () => {
           <div className="mb-3">
             <Link to={`/details/${data.id}`}>
               <img
+                alt=""
                 src={data.image}
                 className="post-avatar w-100 rounded-circle"
               />

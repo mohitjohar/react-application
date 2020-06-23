@@ -10,17 +10,21 @@ import AddUser from './pages/Apicrud/Add';
 import APICrud from './pages/Apicrud';
 import Details from './pages/Detail';
 import Home from './pages/Home';
+// import App from './pages/Home/app';
 import Logout from './pages/Logout';
 import * as serviceWorker from './serviceWorker';
-import NodeMysql from './pages/NodeMysql';
+import Study from './pages/study';
+// import NodeMysql from './pages/NodeMysql';
 
 const routing = (
   <>
     <Router1>
       <Route exact path="/" component={Home} />
       <Route path="/home" component={Home} />
+      <Route path="/study" component={Study} />
+      {/* <Route path="/app" component={App} /> */}
       <Route path="/login" component={LoginForm} />
-      <Route path="/nodemysql" component={NodeMysql} />
+      {/* <Route path="/nodemysql" component={NodeMysql} /> */}
       <Route path="/logout" component={Logout} />
       <Route path="/crudsystem" component={CRUDSystem} />
       <Route path="/apicrud" component={APICrud} />

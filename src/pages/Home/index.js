@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PostGrid from '../../components/PostGrid';
 import Header from '../../components/Header';
 

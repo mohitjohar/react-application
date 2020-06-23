@@ -9,7 +9,7 @@ const Update = ({ match }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [image, setImage] = useState('');
-  const [description, setDescription] = useState('hello , my name mohit');
+  // const [description, setDescription] = useState('hello , my name mohit');
   const [updateAlert, setUdateAlert] = useState(false);
 
   // Loader

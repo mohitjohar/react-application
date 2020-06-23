@@ -1,4 +1,3 @@
-import React from 'react';
 const Logout = p => {
   localStorage.clear();
   p.history.push('/');

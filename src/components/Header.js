@@ -26,7 +26,7 @@ const Header = props => {
       <Navbar color="light" light expand="md" className="shadow-sm main-header">
         <Container>
           <NavbarBrand href="/">
-            <img src={img} />
+            <img alt="" src={img} />
           </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
