@@ -24,14 +24,14 @@ const DataTable = ({ data, deleteMethod }) => {
                     <td>{d.image}</td>
                     <td className="action">
                       <Link to={`/update/${d.id}`}>
-                        <button className="btn btn-info mr-2">Update</button>
+                        <button className="btn btn-primary mr-2"><i className="fa fa-edit"></i> Edit</button>
                       </Link>
                       <button
                         className="btn btn-danger"
                         index={d.id}
                         onClick={() => deleteMethod(d.id)}
                       >
-                        Delete
+                        <i className="fa fa-trash"></i> Delete
                       </button>
                     </td>
                   </tr>

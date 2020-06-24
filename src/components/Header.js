@@ -26,7 +26,8 @@ const Header = props => {
       <Navbar color="light" light expand="md" className="shadow-sm main-header">
         <Container>
           <NavbarBrand href="/">
-            <img alt="" src={img} />
+            {/* <img alt="" src={img} /> */}
+            Mohitk-art
           </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
@@ -39,6 +40,11 @@ const Header = props => {
               <NavItem>
                 <NavLink>
                   <Link to="/apicrud">API Crud</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/study">Study</Link>
                 </NavLink>
               </NavItem>
               <NavItem>
